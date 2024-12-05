@@ -1,12 +1,12 @@
 # Composition API: Lifecycle Hooks {#composition-api-lifecycle-hooks}
 
 :::info Usage Note
-All APIs listed on this page must be called synchronously during the `setup()` phase of a component. See [Guide - Lifecycle Hooks](/guide/essentials/lifecycle) for more details.
+Tất cả các API được liệt kê trên trang này phải được gọi một cách đồng bộ trong giai đoạn `setup()` của một component. Xem [Hướng dẫn - Lifecycle Hooks](/guide/essentials/lifecycle) để biết thêm chi tiết.
 :::
 
 ## onMounted() {#onmounted}
 
-Registers a callback to be called after the component has been mounted.
+Đăng ký một hàm callback để được gọi sau khi component đã được mount.
 
 - **Type**
 
@@ -16,19 +16,19 @@ Registers a callback to be called after the component has been mounted.
 
 - **Details**
 
-  A component is considered mounted after:
+  Một component được coi là đã mount sau khi:
 
-  - All of its synchronous child components have been mounted (does not include async components or components inside `<Suspense>` trees).
+  - Tất cả các component con đồng bộ của nó đã được mount (không bao gồm các component không đồng bộ hoặc các component trong cây `<Suspense>`).
 
-  - Its own DOM tree has been created and inserted into the parent container. Note it only guarantees that the component's DOM tree is in-document if the application's root container is also in-document.
+  - Cây DOM của chính nó đã được tạo và chèn vào container cha. Lưu ý rằng nó chỉ đảm bảo rằng cây DOM của component nằm trong tài liệu nếu container gốc của ứng dụng cũng nằm trong tài liệu.
 
-  This hook is typically used for performing side effects that need access to the component's rendered DOM, or for limiting DOM-related code to the client in a [server-rendered application](/guide/scaling-up/ssr).
+  Hook này thường được sử dụng để thực hiện các side effect yêu cầu truy cập vào DOM của component đã render, hoặc để giới hạn mã liên quan đến DOM ở phía client trong một [ứng dụng render phía server.](/guide/scaling-up/ssr).
 
-  **This hook is not called during server-side rendering.**
+  **Hook này không được gọi khi render phía server..**
 
 - **Example**
 
-  Accessing an element via template ref:
+  Truy cập một phần tử thông qua template ref:
 
   ```vue
   <script setup>
@@ -48,7 +48,7 @@ Registers a callback to be called after the component has been mounted.
 
 ## onUpdated() {#onupdated}
 
-Registers a callback to be called after the component has updated its DOM tree due to a reactive state change.
+Đăng ký một hàm callback để được gọi sau khi component đã cập nhật cây DOM của nó do một thay đổi trạng thái reactive.
 
 - **Type**
 
@@ -58,19 +58,19 @@ Registers a callback to be called after the component has updated its DOM tree d
 
 - **Details**
 
-  A parent component's updated hook is called after that of its child components.
+  Hook của component cha sẽ được gọi sau hook của các component con.
 
-  This hook is called after any DOM update of the component, which can be caused by different state changes, because multiple state changes can be batched into a single render cycle for performance reasons. If you need to access the updated DOM after a specific state change, use [nextTick()](/api/general#nexttick) instead.
+  Hook này được gọi sau bất kỳ cập nhật DOM nào của component, có thể do nhiều thay đổi trạng thái khác nhau, bởi vì nhiều thay đổi trạng thái có thể được gộp lại trong một chu kỳ render để tối ưu hiệu suất. Nếu bạn cần truy cập DOM đã cập nhật sau một thay đổi trạng thái cụ thể, hãy sử dụng [nextTick()](/api/general#nexttick) thay thế.
 
-  **This hook is not called during server-side rendering.**
+  **THook này không được gọi trong quá trình render phía server.**
 
   :::warning
-  Do not mutate component state in the updated hook - this will likely lead to an infinite update loop!
+  Không được thay đổi trạng thái component trong hook updated - điều này có thể dẫn đến vòng lặp cập nhật vô hạn!
   :::
 
 - **Example**
 
-  Accessing updated DOM:
+  Truy cập DOM đã cập nhật:
 
   ```vue
   <script setup>
@@ -91,7 +91,7 @@ Registers a callback to be called after the component has updated its DOM tree d
 
 ## onUnmounted() {#onunmounted}
 
-Registers a callback to be called after the component has been unmounted.
+Đăng ký một hàm callback để được gọi sau khi component đã bị unmounted.
 
 - **Type**
 
@@ -101,15 +101,15 @@ Registers a callback to be called after the component has been unmounted.
 
 - **Details**
 
-  A component is considered unmounted after:
+  Một component được coi là đã unmounted khi:
 
-  - All of its child components have been unmounted.
+  - Tất cả các component con của nó đã bị unmounted.
 
-  - All of its associated reactive effects (render effect and computed / watchers created during `setup()`) have been stopped.
+  - Tất cả các reactive effect liên quan (render effect và computed/watchers được tạo trong `setup()`) đã bị dừng.
 
-  Use this hook to clean up manually created side effects such as timers, DOM event listeners or server connections.
+  Sử dụng hook này để dọn sạch các side effect được tạo thủ công như timer, DOM event listeners hoặc kết nối server.
 
-  **This hook is not called during server-side rendering.**
+  **Hook này không được gọi trong quá trình render phía server.**
 
 - **Example**
 
@@ -130,7 +130,7 @@ Registers a callback to be called after the component has been unmounted.
 
 ## onBeforeMount() {#onbeforemount}
 
-Registers a hook to be called right before the component is to be mounted.
+Đăng ký một hook để được gọi ngay trước khi component sắp được mounting.
 
 - **Type**
 
@@ -140,13 +140,13 @@ Registers a hook to be called right before the component is to be mounted.
 
 - **Details**
 
-  When this hook is called, the component has finished setting up its reactive state, but no DOM nodes have been created yet. It is about to execute its DOM render effect for the first time.
+  Khi hook này được gọi, component đã hoàn tất thiết lập trạng thái reactive, nhưng chưa có nút DOM nào được tạo. Nó sắp thực thi render effect DOM của mình lần đầu tiên.
 
-  **This hook is not called during server-side rendering.**
+  **Hook này không được gọi trong quá trình render phía server.**
 
 ## onBeforeUpdate() {#onbeforeupdate}
 
-Registers a hook to be called right before the component is about to update its DOM tree due to a reactive state change.
+Đăng ký một hook để được gọi ngay trước khi component sắp cập nhật cây DOM của nó do một thay đổi trạng thái reactive.
 
 - **Type**
 
@@ -156,9 +156,9 @@ Registers a hook to be called right before the component is about to update its 
 
 - **Details**
 
-  This hook can be used to access the DOM state before Vue updates the DOM. It is also safe to modify component state inside this hook.
+  Hook này có thể được sử dụng để truy cập trạng thái DOM trước khi Vue cập nhật DOM. Việc sửa đổi trạng thái component bên trong hook này cũng là an toàn.
 
-  **This hook is not called during server-side rendering.**
+  **Hook này không được gọi trong quá trình render phía server.**
 
 ## onBeforeUnmount() {#onbeforeunmount}
 
@@ -172,13 +172,13 @@ Registers a hook to be called right before a component instance is to be unmount
 
 - **Details**
 
-  When this hook is called, the component instance is still fully functional.
+  Khi hook này được gọi, instance component vẫn hoàn toàn chức năng.
 
-  **This hook is not called during server-side rendering.**
+  **Hook này không được gọi trong quá trình render phía server.**
 
 ## onErrorCaptured() {#onerrorcaptured}
 
-Registers a hook to be called when an error propagating from a descendant component has been captured.
+Đăng ký một hook để được gọi khi một lỗi lan truyền từ một component con đã được bắt.
 
 - **Type**
 
@@ -194,41 +194,41 @@ Registers a hook to be called when an error propagating from a descendant compon
 
 - **Details**
 
-  Errors can be captured from the following sources:
+  Lỗi có thể được bắt từ các nguồn sau:
 
-  - Component renders
-  - Event handlers
+  - Render component
+  - Trình xử lý sự kiện
   - Lifecycle hooks
-  - `setup()` function
+  - Hàm `setup()`
   - Watchers
-  - Custom directive hooks
-  - Transition hooks
+  - Hooks của directive tùy chỉnh
+  - Hooks của Transition
 
-  The hook receives three arguments: the error, the component instance that triggered the error, and an information string specifying the error source type.
+  Hook nhận ba đối số: lỗi, instance component đã kích hoạt lỗi, và một chuỗi thông tin chỉ định loại nguồn lỗi.
 
   :::tip
-  In production, the 3rd argument (`info`) will be a shortened code instead of the full information string. You can find the code to string mapping in the [Production Error Code Reference](/error-reference/#runtime-errors).
+  Trong môi trường sản xuất, đối số thứ 3 (`info`) sẽ là một mã rút ngắn thay vì chuỗi thông tin đầy đủ. Bạn có thể tìm thấy bảng ánh xạ từ mã đến chuỗi trong [Tham chiếu Mã Lỗi Sản Xuất.](/error-reference/#runtime-errors).
   :::
 
-  You can modify component state in `errorCaptured()` to display an error state to the user. However, it is important that the error state should not render the original content that caused the error; otherwise the component will be thrown into an infinite render loop.
+  Bạn có thể sửa đổi trạng thái trong `errorCaptured()` để hiển thị trạng thái lỗi cho người dùng. Tuy nhiên, điều quan trọng là trạng thái lỗi không được render lại nội dung gốc đã gây ra lỗi; nếu không, component sẽ bị ném vào một vòng render lỗi vô hạn.
 
-  The hook can return `false` to stop the error from propagating further. See error propagation details below.
+  Hook có thể trả về `false` to stop the error from propagating further. See error propagation details below.
 
   **Error Propagation Rules**
 
-  - By default, all errors are still sent to the application-level [`app.config.errorHandler`](/api/application#app-config-errorhandler) if it is defined, so that these errors can still be reported to an analytics service in a single place.
+  - Theo mặc định, tất cả các lỗi vẫn được gửi đến [`app.config.errorHandler`](/api/application#app-config-errorhandler) ở cấp ứng dụng nếu nó được định nghĩa, để các lỗi này có thể được báo cáo đến một dịch vụ phân tích tại một nơi duy nhất.
 
-  - If multiple `errorCaptured` hooks exist on a component's inheritance chain or parent chain, all of them will be invoked on the same error, in the order of bottom to top. This is similar to the bubbling mechanism of native DOM events.
+  - Nếu nhiều hook `errorCaptured` tồn tại trên chuỗi kế thừa của component hoặc chuỗi cha, tất cả chúng sẽ được gọi trên cùng một lỗi, theo thứ tự từ dưới lên trên. Điều này tương tự như cơ chế nổi bọt của các sự kiện DOM gốc.
 
-  - If the `errorCaptured` hook itself throws an error, both this error and the original captured error are sent to `app.config.errorHandler`.
+  - Nếu hook `errorCaptured` tự nó ném ra một lỗi, cả lỗi này và lỗi được bắt ban đầu sẽ được gửi đến `app.config.errorHandler`.
 
-  - An `errorCaptured` hook can return `false` to prevent the error from propagating further. This is essentially saying "this error has been handled and should be ignored." It will prevent any additional `errorCaptured` hooks or `app.config.errorHandler` from being invoked for this error.
+  - Hook `errorCaptured` có thể trả về `false` to prevent để ngăn lỗi lan truyền (propagating) xa hơn. Về cơ bản, đây là cách nói "lỗi này đã được xử lý và nên bỏ qua." Nó sẽ ngăn bất kỳ hook `errorCaptured` bổ sung hoặc `app.config.errorHandler` nào khác được gọi cho lỗi này.
 
 ## onRenderTracked() <sup class="vt-badge dev-only" /> {#onrendertracked}
 
-Registers a debug hook to be called when a reactive dependency has been tracked by the component's render effect.
+Đăng ký một hook debug để được gọi khi một phụ thuộc reactive đã được theo dõi bởi render effect của component.
 
-**This hook is development-mode-only and not called during server-side rendering.**
+**Hook này chỉ dành cho chế độ phát triển và không được gọi trong quá trình render phía server.**
 
 - **Type**
 
@@ -245,13 +245,13 @@ Registers a debug hook to be called when a reactive dependency has been tracked 
   }
   ```
 
-- **See also** [Reactivity in Depth](/guide/extras/reactivity-in-depth)
+- **Xem thêm** [Reactivity in Depth](/guide/extras/reactivity-in-depth)
 
 ## onRenderTriggered() <sup class="vt-badge dev-only" /> {#onrendertriggered}
 
-Registers a debug hook to be called when a reactive dependency triggers the component's render effect to be re-run.
+Đăng ký một hook debug để được gọi khi một phụ thuộc reactive kích hoạt việc render effect của component được chạy lại.
 
-**This hook is development-mode-only and not called during server-side rendering.**
+**Hook này chỉ dành cho chế độ phát triển và không được gọi trong quá trình render phía server.**
 
 - **Type**
 
@@ -271,13 +271,13 @@ Registers a debug hook to be called when a reactive dependency triggers the comp
   }
   ```
 
-- **See also** [Reactivity in Depth](/guide/extras/reactivity-in-depth)
+- **Xem thêm** [Reactivity in Depth](/guide/extras/reactivity-in-depth)
 
 ## onActivated() {#onactivated}
 
-Registers a callback to be called after the component instance is inserted into the DOM as part of a tree cached by [`<KeepAlive>`](/api/built-in-components#keepalive).
+Đăng ký một callback để được gọi sau khi instance component được chèn vào DOM như một phần của một cây được lưu trữ bởi [`<KeepAlive>`](/api/built-in-components#keepalive).
 
-**This hook is not called during server-side rendering.**
+**Hook này không được gọi trong quá trình render phía server.**
 
 - **Type**
 
@@ -285,13 +285,13 @@ Registers a callback to be called after the component instance is inserted into 
   function onActivated(callback: () => void): void
   ```
 
-- **See also** [Guide - Lifecycle of Cached Instance](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
+- **Xem thêm** [Guide - Lifecycle of Cached Instance](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## onDeactivated() {#ondeactivated}
 
-Registers a callback to be called after the component instance is removed from the DOM as part of a tree cached by [`<KeepAlive>`](/api/built-in-components#keepalive).
+Đăng ký một callback để được gọi sau khi instance component bị xóa khỏi DOM như một phần của một cây được lưu trữ bởi [`<KeepAlive>`](/api/built-in-components#keepalive).
 
-**This hook is not called during server-side rendering.**
+**Hook này không được gọi trong quá trình render phía server.**
 
 - **Type**
 
@@ -299,11 +299,11 @@ Registers a callback to be called after the component instance is removed from t
   function onDeactivated(callback: () => void): void
   ```
 
-- **See also** [Guide - Lifecycle of Cached Instance](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
+- **Xem thêm** [Guide - Lifecycle of Cached Instance](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## onServerPrefetch() <sup class="vt-badge" data-text="SSR only" /> {#onserverprefetch}
 
-Registers an async function to be resolved before the component instance is to be rendered on the server.
+Đăng ký một hàm không đồng bộ để được giải quyết trước khi instance component được render trên server.
 
 - **Type**
 
@@ -313,9 +313,9 @@ Registers an async function to be resolved before the component instance is to b
 
 - **Details**
 
-  If the callback returns a Promise, the server renderer will wait until the Promise is resolved before rendering the component.
+  Nếu callback trả về một Promise, trình render phía server sẽ đợi cho đến khi Promise được giải quyết trước khi render component.
 
-  This hook is only called during server-side rendering can be used to perform server-only data fetching.
+  Hook này chỉ được gọi trong quá trình render phía server và có thể được sử dụng để thực hiện việc tìm nạp dữ liệu chỉ dành cho server.
 
 - **Example**
 
@@ -342,4 +342,4 @@ Registers an async function to be resolved before the component instance is to b
   </script>
   ```
 
-- **See also** [Server-Side Rendering](/guide/scaling-up/ssr)
+- **Xem thêm** [Server-Side Rendering](/guide/scaling-up/ssr)
